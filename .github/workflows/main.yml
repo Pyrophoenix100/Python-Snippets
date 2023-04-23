@@ -22,7 +22,7 @@ jobs:
               github.repos.createOrUpdateFileContents({
                 owner: 'Pyrophoenix100',
                 repo: 'pyrophoenix100.github.io',
-                path: '/scripts/include.js',
+                path: 'scripts/include.js',
                 message: 'Update include.js',
                 content: Buffer.from(content).toString('base64'),
                 sha: context.payload.after
