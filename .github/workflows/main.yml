@@ -15,13 +15,11 @@ jobs:
             script: |
               const fs = require('fs')
               const path = require('path')
-              const content = fs.readFileSync(path.join('.', 'JavaScript', 'includes.js'), 'utf8')
-              github.repos.createOrUpdateFileContents({
-                owner: 'Pyrophoenix100',
-                repo: 'pyrophoenix100.github.io',
-                path: '/scripts/include.js',
-                message: 'Update include.js',
-                content: Buffer.from(content).toString('base64'),
-                sha: context.payload.after
+              fs.readdir('.', (err, files) => {
+                if (err) {
+                  core.warning(err)
+                  return
+                }
+                core.warning(files)
               })
             github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
