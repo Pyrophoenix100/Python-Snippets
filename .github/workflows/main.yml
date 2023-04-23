@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
         - run: 'ls -al JavaScript'
         - name: Overwrite include.js
           uses: actions/github-script@v4
