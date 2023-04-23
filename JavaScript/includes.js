@@ -33,7 +33,6 @@ window.addEventListener("load", (event) => {
             let attributes = element.getAttribute('vars');
             if (attributes != null) {
                 // Split the string into an array of key-value pairs
-                
                 let pairs = attributes.split(';').map(pair => pair.trim()).filter(pair => pair != "");
                 console.log(pairs);
                 // Convert the array into a dictionary object
