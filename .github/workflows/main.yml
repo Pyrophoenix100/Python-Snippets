@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - run: 'ls -al ../Snippets/JavaScript'
+        - run: 'ls -al ${{ github.action_path }}/JavaScript'
         - name: Overwrite include.js
           uses: actions/github-script@v4
           with:
