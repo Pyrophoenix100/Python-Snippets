@@ -20,7 +20,7 @@
  *      <p> Name: {{ first-name }} {{ last-name }} </p>
  **/
 
-/* Version is V0.10 */
+/* Version is V0.09 */
 window.addEventListener("load", (event) => {
     let includes = document.getElementsByTagName("include");
     var includeElem = document.getElementsByTagName('include')[document.getElementsByTagName('include').length - 1];
