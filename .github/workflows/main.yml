@@ -2,7 +2,7 @@ name: Update Include.js on Site
 on:
   push:
     paths:
-      - 'JavaScript/includes.js'
+      - 'JavaScript/include.js'
       
 jobs:
   build:
@@ -11,14 +11,13 @@ jobs:
     steps:
         - name: Checkout repository
           uses: actions/checkout@v2
-        - run: 'ls -al JavaScript'
         - name: Overwrite include.js
           uses: actions/github-script@v4
           with:
             script: |
               const fs = require('fs')
               const path = require('path')
-              const content = fs.readFileSync('./JavaScript/includes.js', 'utf8')
+              const content = fs.readFileSync('./JavaScript/include.js', 'utf8')
               github.repos.createOrUpdateFileContents({
                 owner: 'Pyrophoenix100',
                 repo: 'pyrophoenix100.github.io',
