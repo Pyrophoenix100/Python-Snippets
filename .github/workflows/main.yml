@@ -14,7 +14,7 @@ jobs:
           with:
             script: |
               const fs = require('fs')
-              const content = fs.readFileSync('JS/include.js', 'utf8')
+              const content = fs.readFileSync('JavaScript/include.js', 'utf8')
               github.repos.createOrUpdateFileContents({
                 owner: 'Pyrophoenix100',
                 repo: 'pyrophoenix100.github.io',
