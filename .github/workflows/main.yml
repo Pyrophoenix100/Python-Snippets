@@ -9,17 +9,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+        - name: Upload a Build Artifact
+          uses: actions/upload-artifact@v3.1.2
+          with:
+            # Artifact name
+            name: includes.js
+            # A file, directory or wildcard pattern that describes what to upload
+            path: JavaScript/includes.js
+        - name: Download a Build Artifact
+          uses: actions/download-artifact@v2.1.1
+          with:
+            # Artifact name
+            name: includes.js
+            # Destination path
+            path: includes.js
         - name: Overwrite include.js
           uses: actions/github-script@v4
           with:
             script: |
               const fs = require('fs')
               const path = require('path')
-              fs.readdir('.', (err, files) => {
-                if (err) {
-                  core.warning(err)
-                  return
-                }
-                core.warning(files)
+              const content = fs.readFileSync('./includes'), 'utf8')
+              github.repos.createOrUpdateFileContents({
+                owner: 'Pyrophoenix100',
+                repo: 'pyrophoenix100.github.io',
+                path: '/scripts/include.js',
+                message: 'Update include.js',
+                content: Buffer.from(content).toString('base64'),
+                sha: context.payload.after
               })
             github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
