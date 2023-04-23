@@ -18,7 +18,6 @@
  *      <include src="header.html" vars="first-name: John; last-name: Doe">
  * header.html
  *      <p> Name: {{ first-name }} {{ last-name }} </p>
- * 
  **/
 window.addEventListener("load", (event) => {
     let includes = document.getElementsByTagName("include");
