@@ -2,7 +2,7 @@ name: Update Include.js on Site
 on:
   push:
     paths:
-      - 'JS/includes.js'
+      - 'JavaScript/includes.js'
       
 jobs:
   build:
