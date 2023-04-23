@@ -14,7 +14,8 @@ jobs:
           with:
             script: |
               const fs = require('fs')
-              const content = fs.readFileSync('./JavaScript/includes.js', 'utf8')
+              const path = require('path')
+              const content = fs.readFileSync(path.join(__dirname, 'JavaScript', 'includes.js'), 'utf8')
               github.repos.createOrUpdateFileContents({
                 owner: 'Pyrophoenix100',
                 repo: 'pyrophoenix100.github.io',
@@ -23,4 +24,4 @@ jobs:
                 content: Buffer.from(content).toString('base64'),
                 sha: context.payload.after
               })
-            token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+            github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
