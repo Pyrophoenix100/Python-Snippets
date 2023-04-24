@@ -9,7 +9,11 @@ name: Sync file between Repositories
 on:
   push:
     paths:
-      - 'path/to/file' # Path to the file you want to track for syncronization
+      - 'path/to/file.txt' # Path to the file you want to track for syncronization
+env:
+  repoOwner: 
+  repoName: 
+  remotePath: 
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,14 +25,14 @@ jobs:
           with:
             script: |
               const response = await github.repos.getContent({
-                owner: repoOwner,
-                repo: remoteRepoName,
-                path: 'remote/file/path.txt'
+                owner: $repoOwner,
+                repo: $repoName,
+                path: $remotePath
               });
-              console.log(response.data.sha);
-              core.warning(response.data.sha);
-              process.env.SHA = response.data.sha;
-            # Get the SHA of the changed file 
+              core.setOutput('SHA', response.data.sha);
+            # Gets the SHA of the changed file, needs a couple parameter changes
+            # repoOwner: Remote repo owner, should be your github name
+            # 
         - name: Overwrite remote file(s)
           uses: actions/github-script@v4
           with:
@@ -41,12 +45,12 @@ jobs:
                 path: 'remote/path/to/file',
                 message: 'commitMessage',
                 content: Buffer.from(content).toString('base64'),
-                sha: ${{ env.SHA }}
+                sha: '${{ steps.file-sha.outputs.SHA }}'
               })
             # The above script needs a few changes to work properly. 
             # ./path/to/file: Path of the file in the repo, with a prepended "./".
-            # repoOwner: Your github username.
-            # repoName: Name of the remote repo to sync to.
+            # repoOwner: Same as Get SHA.
+            # repoName: Same as Get SHA.
             # remote/path/to/file: Path of the file in the remote repo.
             # commitMessage: A commit message for the push action.
             github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
