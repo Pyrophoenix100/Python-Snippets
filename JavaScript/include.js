@@ -27,9 +27,9 @@ Changelog:
 - Added 'outer' attribute to completely remove the include tag.
 - Cleaned up code.
 - Moved some things to functions.
+*/
 
-*/ 
-function attributesToKeyValuePairs (attributeString) { 
+function attributesToKeyValuePairs(attributeString) { 
  // Split the string into an array of key-value pairs
   let pairs = string.split(';').map(pair => pair.trim()).filter(pair => pair != "");
   // Convert the array into a dictionary object
