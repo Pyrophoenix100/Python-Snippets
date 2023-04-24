@@ -26,6 +26,8 @@ jobs:
                 path: 'remote/file/path.txt'
               });
               console.log(response.data.sha);
+              core.warning
+              process.env.SHA = response.data.sha;
             outputs:
               sha: ${{ steps.get-sha.outputs.sha }}
             # Get the SHA of the changed file 
@@ -41,7 +43,7 @@ jobs:
                 path: 'remote/path/to/file',
                 message: 'commitMessage',
                 content: Buffer.from(content).toString('base64'),
-                sha: ${{ steps.get-sha.outputs.sha }}
+                sha: ${{ env.SHA }}
               })
             # The above script needs a few changes to work properly. 
             # ./path/to/file: Path of the file in the repo, with a prepended "./".

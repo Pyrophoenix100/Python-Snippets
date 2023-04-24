@@ -20,6 +20,7 @@ jobs:
               });
               console.log(response.data.sha);
               core.warning(response.data.sha);
+              process.env.SHA = response.data.sha;
           outputs:
             sha: ${{ steps.get-sha.outputs.sha }}
         - name: Overwrite include.js
@@ -35,6 +36,6 @@ jobs:
                 path: 'scripts/include.js',
                 message: 'Update include.js',
                 content: Buffer.from(content).toString('base64'),
-                sha: ${{ steps.get-sha.outputs.sha }}
+                sha: ${{ env.SHA }}
               })
             github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
