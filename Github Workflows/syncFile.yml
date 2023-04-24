@@ -33,6 +33,7 @@ jobs:
           uses: actions/checkout@v2
         - name: Get SHA of File
           uses: actions/github-script@v4
+          id: file-sha
           with:
             script: |
               const response = await github.repos.getContent({
@@ -47,7 +48,7 @@ jobs:
           with:
             script: |
               const fs = require('fs')
-              const content = fs.readFileSync('./${{ localPath }}', 'utf8')
+              const content = fs.readFileSync('./${{ env.localPath }}', 'utf8')
               github.repos.createOrUpdateFileContents({
                 owner: '${{ env.repoOwner }}',
                 repo: '${{ env.repoName }}',

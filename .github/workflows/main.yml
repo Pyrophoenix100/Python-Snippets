@@ -22,7 +22,6 @@ jobs:
           id: file-sha
           with:
             script: |
-              const fs = require('fs')
               const response = await github.repos.getContent({
                 owner: '${{ env.repoOwner }}',
                 repo: '${{ env.repoName }}',
@@ -34,7 +33,6 @@ jobs:
           with:
             script: |
               const fs = require('fs')
-              const path = require('path')
               const content = fs.readFileSync('./${{ env.localPath }}', 'utf8')
               github.repos.createOrUpdateFileContents({
                 owner: '${{ env.repoOwner }}',
