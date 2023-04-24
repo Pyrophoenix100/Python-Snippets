@@ -27,6 +27,7 @@ Changelog:
 - Added 'outer' attribute to completely remove the include tag.
 - Cleaned up code.
 - Moved some things to functions.
+
 */ 
 function attributesToKeyValuePairs (attributeString) { 
  // Split the string into an array of key-value pairs
