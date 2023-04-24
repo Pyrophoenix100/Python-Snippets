@@ -18,7 +18,7 @@ jobs:
             script: |
               const fs = require('fs')
               const response = await github.repos.getContent({
-                owner: '$repoOwner',
+                owner: '${{ env.repoOwner }}',
                 repo: 'pyrophoenix100.github.io',
                 path: 'scripts/include.js'
               });
