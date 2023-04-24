@@ -10,7 +10,7 @@ env:
   repoOwner: 'pyrophoenix100'
   repoName: 'pyrophoenix100.github.io'
   remotePath: 'scripts/include.js'
-  commitMessage: 'Syncronize Include.Js with $repoName'
+  commitMessage: 'Push Include.js to live'
 jobs:
   build:
     runs-on: ubuntu-latest
