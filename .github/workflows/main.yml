@@ -13,6 +13,7 @@ jobs:
           uses: actions/github-script@v4
           with:
             script: |
+              const fs = require('fs')
               const response = await github.repos.getContent({
                 owner: 'pyrophoenix100',
                 repo: 'pyrophoenix100.github.io',
