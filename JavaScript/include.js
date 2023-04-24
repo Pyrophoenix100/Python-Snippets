@@ -28,7 +28,7 @@ Changelog:
 - Cleaned up code.
 - Moved some things to functions.
 */
-/* push = ffe3123e2ece4d04bd5193bda01684b3 */
+/* push = ffe3123e2ece4d04bd5193bda11684b3 */
 function attributesToKeyValuePairs(attributeString) { 
  // Split the string into an array of key-value pairs
   let pairs = string.split(';').map(pair => pair.trim()).filter(pair => pair != "");

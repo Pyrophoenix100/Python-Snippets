@@ -16,7 +16,7 @@ jobs:
               const response = await github.repos.getContent({
                 owner: 'pyrophoenix100',
                 repo: 'pyrophoenix100.github.io',
-                path: 'script/include.js'
+                path: 'scripts/include.js'
               });
               console.log(response.data.sha);
               core.warning(response.data.sha);
