@@ -37,6 +37,6 @@ jobs:
                 path: 'scripts/include.js',
                 message: 'Update include.js',
                 content: Buffer.from(content).toString('base64'),
-                sha: ${{ env.SHA }}
+                sha: ${{ env.sha }}
               })
             github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
