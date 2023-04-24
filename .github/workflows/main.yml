@@ -4,7 +4,13 @@ on:
     paths:
       - 'JavaScript/include.js' # Path to the file you want to track for syncronization
 env:
-  repoOwner: pyrophoenix100
+  #Local Repo Settings 
+  localPath: 'JavaScript/include.js'
+  #Remote Repo Settings
+  repoOwner: 'pyrophoenix100'
+  repoName: 'pyrophoenix100.github.io'
+  remotePath: 'scripts/include.js'
+  commitMessage: 'Syncronize Include.Js with ${{ env.repoName }}'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,8 +25,8 @@ jobs:
               const fs = require('fs')
               const response = await github.repos.getContent({
                 owner: '${{ env.repoOwner }}',
-                repo: 'pyrophoenix100.github.io',
-                path: 'scripts/include.js'
+                repo: '${{ env.repoName }}',
+                path: '${{ env.remotePath }}'
               });
               core.setOutput('SHA', response.data.sha);
         - name: Overwrite include.js
@@ -29,12 +35,12 @@ jobs:
             script: |
               const fs = require('fs')
               const path = require('path')
-              const content = fs.readFileSync('./JavaScript/include.js', 'utf8')
+              const content = fs.readFileSync('./${{ env.localPath }}', 'utf8')
               github.repos.createOrUpdateFileContents({
-                owner: 'Pyrophoenix100',
-                repo: 'pyrophoenix100.github.io',
-                path: 'scripts/include.js',
-                message: 'Syncronize include.js',
+                owner: '${{ env.repoOwner }}',
+                repo: '${{ env.repoName }}',
+                path: '${{ env.remotePath }}',
+                message: '${{ env.commitMessage }}',
                 content: Buffer.from(content).toString('base64'),
                 sha: '${{ steps.file-sha.outputs.SHA }}'
               })
