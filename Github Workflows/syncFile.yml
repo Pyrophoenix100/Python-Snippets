@@ -20,7 +20,7 @@ jobs:
           uses: actions/github-script@v4
           with:
             script: |
-              const response = await github.rest.repos.getContent({
+              const response = await github.repos.getContent({
                 owner: repoOwner,
                 repo: remoteRepoName,
                 path: 'remote/file/path.txt'

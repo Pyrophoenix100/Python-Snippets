@@ -13,7 +13,7 @@ jobs:
           uses: actions/github-script@v4
           with:
             script: |
-              const response = await github.rest.repos.getContent({
+              const response = await github.repos.getContent({
                 owner: 'pyrophoenix100',
                 repo: 'pyrophoenix100.github.io',
                 path: 'script/include.js'
