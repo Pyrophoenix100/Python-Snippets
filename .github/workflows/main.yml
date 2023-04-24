@@ -11,6 +11,7 @@ jobs:
           uses: actions/checkout@v2
         - name: Get SHA of File
           uses: actions/github-script@v4
+          id: file-sha
           with:
             script: |
               const fs = require('fs')
@@ -19,11 +20,8 @@ jobs:
                 repo: 'pyrophoenix100.github.io',
                 path: 'scripts/include.js'
               });
-              console.log(response.data.sha);
               core.warning(response.data.sha);
-              fs.appendFileSync(process.env.GITHUB_STATE, 'sha=' + response.data.sha + '${os.EOL}', {
-                encoding: 'utf8'
-              })
+              core.setOutput('SHA', response.data.sha);
         - name: Overwrite include.js
           uses: actions/github-script@v4
           with:
@@ -37,6 +35,6 @@ jobs:
                 path: 'scripts/include.js',
                 message: 'Update include.js',
                 content: Buffer.from(content).toString('base64'),
-                sha: ${{ env.sha }}
+                sha: ${{ steps.file-sha.outputs.SHA }}
               })
             github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
