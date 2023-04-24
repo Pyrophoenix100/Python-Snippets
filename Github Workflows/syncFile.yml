@@ -28,8 +28,6 @@ jobs:
               console.log(response.data.sha);
               core.warning
               process.env.SHA = response.data.sha;
-            outputs:
-              sha: ${{ steps.get-sha.outputs.sha }}
             # Get the SHA of the changed file 
         - name: Overwrite remote file(s)
           uses: actions/github-script@v4
