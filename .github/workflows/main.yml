@@ -2,15 +2,26 @@ name: Update Include.js on Site
 on:
   push:
     paths:
-      - 'JavaScript/include.js'
-      
+      - 'JavaScript/include.js' # Path to the file you want to track for syncronization
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
         - name: Checkout repository
           uses: actions/checkout@v2
+        - name: Get SHA of File
+          uses: actions/github-script@v4
+          with:
+            script: |
+              const response = await github.rest.repos.getContent({
+                owner: 'pyrophoenix100',
+                repo: 'pyrophoenix100.github.io',
+                path: 'script/include.js'
+              });
+              console.log(response.data.sha);
+              core.warning(response.data.sha);
+            outputs:
+              sha: ${{ steps.get-sha.outputs.sha }}
         - name: Overwrite include.js
           uses: actions/github-script@v4
           with:
@@ -24,6 +35,6 @@ jobs:
                 path: 'scripts/include.js',
                 message: 'Update include.js',
                 content: Buffer.from(content).toString('base64'),
-                sha: context.payload.after
+                sha: ${{ steps.get-sha.outputs.sha }}
               })
             github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
