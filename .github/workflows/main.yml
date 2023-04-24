@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'JavaScript/include.js' # Path to the file you want to track for syncronization
+    branches:
+      - release
 env:
   #Local Repo Settings 
   localPath: 'JavaScript/include.js'
