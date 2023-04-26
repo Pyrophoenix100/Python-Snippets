@@ -65,7 +65,7 @@ function replaceIncludes() {
       HTMLFileBody(element.attributes['src'].value)
       .then(collection => {
           let HTMLBuffer = collection[0].innerHTML;
-          if (attributeVars = element.getAttribute('vars') && attributeVars != null) {
+          if (attributeVars = element.getAttribute('vars') && typeof(attributeVars) != 'undefined') {
               let vars = attributesToKeyValuePairs(attributes);
               for (const [key, value] of Object.entries(vars)) {
                   HTMLBuffer = HTMLBuffer.replace("{{ " + key + " }}", value);
