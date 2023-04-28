@@ -20,8 +20,12 @@
  *      <p> Name: {{ first-name }} {{ last-name }} </p>
  **/
 
-/* Version is V0.03 */
+/* Version is V0.04 */
 /* 
+Planned:
+- Add Tag Optionality
+- Add simple conditionals 
+
 Changelog:
 (V0.04):
 - Changed attribute handling slightly
