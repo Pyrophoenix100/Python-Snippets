@@ -16,7 +16,7 @@ env:
   #Remote Repo Settings
   repoOwner: 'Pyrophoenix100'
   repoName: 'pyrophoenix100.github.io'
-  remotePath: '/scripts/bits.js'
+  remotePath: 'scripts/bits.js'
   commitMessage: 'Syncronize Bits.js'
   # The below script needs a few variables to work properly. 
   # local/file.txt: Path of the file in the repo
