@@ -1,0 +1,61 @@
+# This workflow syncronizes a file between this workflow's repository and 
+# a remote repository. It only works one way, IE changes made in the remote 
+# repo to the file will be overwritten the next time the workflow repo's copy 
+# is changed. You will need to define the local and remote file in the script
+# as well as all necessary repo and token information. I recommend using 
+# fine-grained access tokens, as they allow you to grant r/w access to one
+# repo only, so there is no risk to your other repos.
+name: Sync file between Repositories
+on:
+  push:
+    paths:
+      - 'JavaScript/bits.js' # Path to the file you want to track for syncronization
+env:
+  #Local Repo Settings 
+  localPath: 'JavaScript/bits.js'
+  #Remote Repo Settings
+  repoOwner: 'Pyrophoenix100'
+  repoName: 'pyrophoenix100.github.io'
+  remotePath: 'scripts/bits.js'
+  commitMessage: 'Syncronize Bits.js'
+  # The below script needs a few variables to work properly. 
+  # local/file.txt: Path of the file in the repo
+  # localPath: Same as the above variable. 
+  # repoOwner: Same as Get SHA.
+  # repoName: Same as Get SHA.
+  # remote/path/to/file: Path of the file in the remote repo.
+  # commitMessage: A commit message for the push action.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+        - name: Get SHA of File
+          uses: actions/github-script@v4
+          id: file-sha
+          with:
+            script: |
+              const response = await github.repos.getContent({
+                owner: '${{ env.repoOwner }}',
+                repo: '${{ env.repoName }}',
+                path: '${{ env.remotePath }}'
+              });
+              core.setOutput('SHA', response.data.sha);
+            # Gets the SHA of the changed file
+        - name: Overwrite remote file(s)
+          uses: actions/github-script@v4
+          with:
+            script: |
+              const fs = require('fs')
+              const content = fs.readFileSync('./${{ env.localPath }}', 'utf8')
+              github.repos.createOrUpdateFileContents({
+                owner: '${{ env.repoOwner }}',
+                repo: '${{ env.repoName }}',
+                path: '${{ env.remotePath }}',
+                message: '${{ env.commitMessage }}',
+                content: Buffer.from(content).toString('base64'),
+                sha: '${{ steps.file-sha.outputs.SHA }}'
+              })
+            github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+            # Add a personal access token to your secrets to run.
