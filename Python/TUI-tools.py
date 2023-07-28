@@ -10,3 +10,16 @@ def conditionalInput(prompt, condition):
         else:
             print("Please enter a valid option")
             continue
+
+
+# CTRL+Z to stop input.
+def multilineInput(prompt):
+    print(prompt)
+    contents = []
+    while True:
+        try:
+            line = input()
+        except EOFError:
+            break
+        contents.append(line)
+    return "\n".join(contents)
