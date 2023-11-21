@@ -1,0 +1,1 @@
+UPDATE tablename SET encrypted_pass = MD5(password)
