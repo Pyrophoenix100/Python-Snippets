@@ -1,0 +1,3 @@
+-- You can quickly deduplicate a table by adding a unique constraint and removing it. You need to use the ignore keyword to suppress errors so that it will remove rows.
+-- Please note that this has no consideration for the actual content of the rows, and only deduplicates on the columns you select for the constraint.
+ALTER IGNORE TABLE `database`.`table` ADD UNIQUE `deduplicate` (`field`, `names`);
